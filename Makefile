@@ -15,3 +15,6 @@ $(PROG1).o: $(PROG1).cpp
 
 clean:
 	rm -f $(PROGS) *.o *~ \#*
+
+clear:
+	rm -f *.ppm

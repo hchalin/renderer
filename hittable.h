@@ -26,5 +26,5 @@ class hittable{
 
 };
 
-#endif HITTABLE_H
+#endif
 
