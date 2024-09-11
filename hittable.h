@@ -1,7 +1,6 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
-#include "ray.h"
 
 class hit_record{
   public:
@@ -12,7 +11,6 @@ class hit_record{
 
     void set_face_normal(const ray& r, const vec3& outward_normal){
       // Set the hit record normal vector
-      // NOTE: It is assumed that 'outward_normal' is a unit vector
       front_face = dot(r.direction(), outward_normal) < 0;
       normal = front_face ? outward_normal : -outward_normal;
     }
@@ -24,9 +22,9 @@ class hittable{
   public:
     virtual ~hittable() = default;
 
-    virtual bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) const = 0;
+    virtual bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) const = 0; // pure virtual fn - "const = 0"
 
 };
 
-#endif
+#endif HITTABLE_H
 

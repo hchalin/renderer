@@ -1,5 +1,3 @@
-#include <iostream> 
-
 #include "vec3.h"
 
 #ifndef COLOR_H
