@@ -1,3 +1,6 @@
+/*
+    This class is used to manage real vauled intervals with a minimum and maximum
+*/
 #ifndef INTERVAL_H
 #define INTERVAL_H
 
