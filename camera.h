@@ -94,13 +94,23 @@ private:
 
     color ray_color(const ray &r, int max_depth, const hittable &world) const
     {
+        // Base case
         if (max_depth <= 0) // hit max ray bounce, no light is gathered
             return color(0, 0, 0);
+
         hit_record rec;
 
-        if (world.hit(r, interval(0, infinity), rec))
+        if (world.hit(r, interval(0.001, infinity), rec))
         {
-            vec3 direction = random_on_hemisphere(rec.normal);
+            /*
+                OLD DIFFUSE
+            */
+            // vec3 direction = random_on_hemisphere(rec.normal);
+            /*
+                NEW DIFFUSE
+            */
+            vec3 direction = rec.normal - random_unit_vector();
+
             // Recursive call
             return 0.5 * ray_color(ray(rec.p, direction), max_depth - 1, world);
         }
