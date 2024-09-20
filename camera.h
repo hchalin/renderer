@@ -2,14 +2,16 @@
 #define CAMERA_H
 
 #include "hittable.h"
+#include "material.h"
 
 class camera
 {
 public:
-    double aspect_ratio = 1.0;  // Ratio of image width over height
-    int image_width = 100;      // Rendered image width in pixel count
+    double aspect_ratio = 1.0; // Ratio of image width over height
+    int image_width = 100;     // Rendered image width in pixel count
     int samples_per_pixel = 10; // Count of random samples per pixel, (subdivides the pixel)
-    int max_depth = 10;         // max number of ray bounces into scene
+    //int samples_per_pixel = 500; // Count of random samples per pixel, (subdivides the pixel)
+    int max_depth = 10;          // max number of ray bounces into scene
 
     void render(const hittable &world)
     {
@@ -92,27 +94,21 @@ private:
         return vec3(random_double() - 0.5, random_double() - 0.5, 0);
     }
 
-    color ray_color(const ray &r, int max_depth, const hittable &world) const
+    color ray_color(const ray &r, int depth, const hittable &world) const
     {
         // Base case
-        if (max_depth <= 0) // hit max ray bounce, no light is gathered
+        if (depth <= 0) // hit max ray bounce, no light is gathered
             return color(0, 0, 0);
 
         hit_record rec;
 
         if (world.hit(r, interval(0.001, infinity), rec))
         {
-            /*
-                OLD DIFFUSE
-            */
-            // vec3 direction = random_on_hemisphere(rec.normal);
-            /*
-                NEW DIFFUSE
-            */
-            vec3 direction = rec.normal - random_unit_vector();
-
-            // Recursive call
-            return 0.5 * ray_color(ray(rec.p, direction), max_depth - 1, world);
+            ray scattered;
+            color attenuation;
+            if (rec.mat->scatter(r, rec, attenuation, scattered))
+                return attenuation * ray_color(scattered, depth - 1, world);
+            return color(0, 0, 0);
         }
 
         vec3 unit_direction = unit_vector(r.direction());
