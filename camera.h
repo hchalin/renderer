@@ -7,11 +7,11 @@
 class camera
 {
 public:
-    double aspect_ratio = 1.0; // Ratio of image width over height
-    int image_width = 100;     // Rendered image width in pixel count
+    double aspect_ratio = 1.0;  // Ratio of image width over height
+    int image_width = 100;      // Rendered image width in pixel count
     int samples_per_pixel = 10; // Count of random samples per pixel, (subdivides the pixel)
-    //int samples_per_pixel = 500; // Count of random samples per pixel, (subdivides the pixel)
-    int max_depth = 10;          // max number of ray bounces into scene
+    // int samples_per_pixel = 500; // Count of random samples per pixel, (subdivides the pixel)
+    int max_depth = 10; // max number of ray bounces into scene
 
     void render(const hittable &world)
     {
@@ -104,8 +104,8 @@ private:
 
         if (world.hit(r, interval(0.001, infinity), rec))
         {
-            ray scattered;
-            color attenuation;
+            ray scattered; // Create a new scattered ray
+            color attenuation;     // Create 
             if (rec.mat->scatter(r, rec, attenuation, scattered))
                 return attenuation * ray_color(scattered, depth - 1, world);
             return color(0, 0, 0);
