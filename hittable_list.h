@@ -11,7 +11,10 @@ class hittable_list : public hittable {
     // both 'objects' and 'object' are smart pointers
     std::vector<shared_ptr<hittable>> objects;
 
-    hittable_list() {}
+    // Default Constructor
+    //hittable_list() {}
+    hittable_list() = default;
+    // Custom constructor
     hittable_list(shared_ptr<hittable> object) { add(object); }
 
     void clear() { objects.clear(); }

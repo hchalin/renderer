@@ -17,4 +17,4 @@ clean:
 	rm -f $(PROGS) *.o *~ \#*
 
 clear:
-	rm -f *.ppm
+	rm -f renders/*.ppm

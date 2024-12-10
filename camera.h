@@ -13,6 +13,8 @@ public:
     // int samples_per_pixel = 500; // Count of random samples per pixel, (subdivides the pixel)
     int max_depth = 10; // max number of ray bounces into scene
 
+    float vFov = 90;
+
     void render(const hittable &world)
     {
         initialize();
@@ -105,7 +107,7 @@ private:
         if (world.hit(r, interval(0.001, infinity), rec))
         {
             ray scattered; // Create a new scattered ray
-            color attenuation;     // Create 
+            color attenuation;     // Create
             if (rec.mat->scatter(r, rec, attenuation, scattered))
                 return attenuation * ray_color(scattered, depth - 1, world);
             return color(0, 0, 0);
